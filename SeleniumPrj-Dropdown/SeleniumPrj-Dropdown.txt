@@ -1,0 +1,68 @@
+package pkg;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class Dropdownprg {
+	
+	WebDriver driver;
+	
+	@Before
+	
+	public void setup()
+	{
+	driver= new ChromeDriver();
+	driver.get("https://register.rediff.com/register/register.php?FormName=user_details");
+	}
+	
+	@Test
+	
+	public void test()
+	{
+		WebElement con=driver.findElement(By.xpath("//select[@id='country']"));
+		Select drpCountry = new Select(con);
+		drpCountry.selectByVisibleText("Brazil");
+		
+		WebElement day=driver.findElement(By.xpath("//*[@id=\"tblcrtac\"]/tbody/tr[22]/td[3]/select[1]"));
+		Select daydetails=new Select(day);
+		daydetails.selectByVisibleText("01");
+		
+		WebElement month=driver.findElement(By.xpath("//*[@id=\"tblcrtac\"]/tbody/tr[22]/td[3]/select[2]"));
+		Select mdetails=new Select(month);
+		mdetails.selectByValue("02");
+		
+		WebElement year=driver.findElement(By.xpath("//*[@id=\"tblcrtac\"]/tbody/tr[22]/td[3]/select[3]"));
+		Select yrdetails=new Select(year);
+		yrdetails.selectByValue("2022");
+		
+		List<WebElement> l = drpCountry.getOptions();
+		l.size();
+		System.out.println("no.of options are" +l.size());
+		
+		List<WebElement> li=mdetails.getOptions();
+		li.size();
+		System.out.println("on of elements in month "+li.size());
+		
+		for(WebElement ob:li) {
+			System.out.println(ob.getText());
+			String a=ob.getText();
+			if(a.contains("JAN")) {
+				System.out.println("pass");
+				
+			}
+			else {
+				System.out.println("fail");
+			}
+		}
+		
+	}
+
+}
